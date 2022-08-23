@@ -1,0 +1,196 @@
+################################################
+#                i3 config                     #
+#                                              #
+# Author - Tanish                              #
+# Github - https://github.com/tanish1729       #
+# Docs - https://i3wm.org/docs/userguide.html  #
+#                                              #
+################################################
+
+# Selecting Mod key
+# Mod1 -> Alt, Mod4 -> Windows
+set $mod Mod4
+
+# Font for window titles and the bar.
+font pango:monospace 15
+
+# Launches terminal.
+bindsym $mod+Return exec alacritty
+
+# Kill focussed window
+bindsym $mod+q kill
+
+# Launching Rofi
+# This only launches applications with a .desktop file
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/ribbon/launcher.sh
+# This launches 3 tabs, including one for those applications without a .desktop file and one to show all applications open on various workspaces
+bindsym $mod+Shift+d exec --no-startup-id ~/.config/rofi/launchers/text/launcher.sh
+
+# Launching Polybar everytime we start
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
+# Launching Clipboard tool copyq everytime we start
+exec_always --no-startup-id copyq
+
+# Launching keybind manager sxhkd for running scripts
+exec_always --no-startup-id sxhkd
+# Nitrogen for picking wallpapers
+bindsym $mod+w exec nitrogen
+# This ensures wallpaper is always restored whenever we restart
+exec_always --no-startup-id nitrogen --restore &
+
+# Locking Screen with Image (has to be png)
+bindsym $mod+x exec i3lock --image ~/wallpapers/lock.png
+
+# Setting gaps between windows and boundaries
+gaps inner 5
+gaps outer 5
+gaps vertical 5
+gaps horizontal 5
+gaps left 5
+gaps right 5
+
+# Set window borders(none means no window decorations)
+default_border none
+default_floating_border none
+
+# Set up compositor which helps in transparency and fading of windows
+# currently removed because of conky
+exec_always picom -f 
+
+# Launch conky on startup
+# exec_always --no-startup-id conky
+
+# Launch Powermenu
+bindsym $mod+Shift+x exec ~/.config/rofi/powermenu/powermenu.sh
+
+# Launch flameshot (screenshot tool, saves to ~/Pictures)
+bindsym Print exec flameshot gui
+
+# Launching NetworkManager (managing internet connectio) and nm-applet (tray GUI for the same)
+exec_always nm-applet
+
+# Volume Control
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
+bindsym XF86AudioMute exec amixer -q set Master toggle
+
+# Brightness Control in ALG i3
+bindsym XF86MonBrightnessUp exec sudo xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec sudo xbacklight -dec 10
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Standard i3wm keybindings
+
+# 1A] change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# 1B] vim keybindings to change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# 2A] move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# 2B] vim keybindings to move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# 3] split in horizontal/vertical orientation
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# 4] enter fullscreen mode for focused window
+bindsym $mod+f fullscreen toggle
+
+# 5] change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split 
+
+# 6] toggle and change focus between tiling and floating
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# 7] focus on the parent or child container
+bindsym $mod+a focus parent
+bindsym $mod+b focus child
+
+# Set variable names for workspaces
+set $ws1 "1-Browsing"
+set $ws2 "2-College"
+set $ws3 "3-Terminals"
+set $ws4 "4-Coding"
+set $ws5 "5-Fun"
+set $ws6 "6-Music"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+
+# 8] switching to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+
+# 9] moving focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+
+# 10] relaod configuration file
+bindsym $mod+Shift+c reload
+
+# 11] restart i3 inplace 
+bindsym $mod+Shift+r restart
+
+# 12] resizing windows
+# enter resize mode
+bindsym $mod+r mode "resize"
+mode "resize" {
+        # These bindings work while within resize mode
+        # Pressing left and right change the window’s width.
+        # Pressing up and down change the window’s height
+
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+# 13] Launching programs on certain workspaces
+# for_window [class="name"] move to workspace $wsx
