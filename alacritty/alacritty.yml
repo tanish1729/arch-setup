@@ -1,0 +1,195 @@
+################################################
+#              Alacrity config                 #
+#                                              #
+# Author - Tanish                              #
+# Github - https://github.com/tanish1729       #
+# Docs - https://github.com/alacritty/         #
+#                                              #
+################################################
+
+# Any items in the `env` entry below will be added as environment variables
+env:
+  TERM: xterm-256color
+
+# Window
+window:
+  # Window padding
+  # Blank space added around the window in pixels. This padding is scaled by DPI and the specified value is always added at both opposing sides.
+  padding:
+    x: 3
+    y: 3
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: true
+  # Window decorations
+  decorations: none
+  # Startup Mode
+  startup_mode: Windowed
+  # Window title
+  title: Alacritty
+  # Window class
+  class:
+    # Application instance name
+    instance: Alacritty
+    # General application class
+    general: Alacritty
+
+# Scrolling
+scrolling:
+  # Maximum number of lines in the scrollback buffer. Specifying '0' will disable scrolling.
+  history: 5000
+  # Number of lines the viewport will move for every line scrolled when scrollback is enabled (history > 0).
+  multiplier: 3
+  # Scroll to the bottom when new text is written to the terminal.
+  auto_scroll: false
+
+# Spaces per Tab
+# This setting defines the width of a tab in cells.
+tabspaces: 4
+
+# Font configuration
+font:
+  # Normal font face
+  normal:
+    # Font family
+    family: Source Code Pro
+    style: Regular
+  # Bold font face
+  bold:
+    # Font family
+    family: Source Code Pro
+    style: Bold
+  # Italic font face
+  italic:
+    # Font family
+    family: Source Code Pro
+    style: Italic
+  # Bold italic font face
+  bold_italic:
+    # Font family
+    family: Source Code Pro
+    style: Bold Italic
+  # Font size
+  size: 8.0
+  # Offset is the extra space around each character. `offset.y` can be thought of as modifying the line spacing, and `offset.x` as modifying the letter spacing.
+  offset:
+    x: 0
+    y: 1
+
+# If `true`, bold text is drawn using the bright color variants.
+draw_bold_text_with_bright_colors: true
+
+# Color Scheme
+schemes:
+  ### Dracula ###
+  Dracula: &Dracula
+    primary:
+      background: "#282a36"
+      foreground: "#f8f8f2"
+    cursor:
+      text: CellBackground
+      cursor: CellForeground
+    vi_mode_cursor:
+      text: CellBackground
+      cursor: CellForeground
+    search:
+      matches:
+        foreground: "#44475a"
+        background: "#50fa7b"
+      focused_match:
+        foreground: "#44475a"
+        background: "#ffb86c"
+      bar:
+        background: "#282a36"
+        foreground: "#f8f8f2"
+    line_indicator:
+      foreground: None
+      background: None
+    selection:
+      text: CellForeground
+      background: "#44475a"
+    normal:
+      black: "#000000"
+      red: "#ff5555"
+      green: "#50fa7b"
+      yellow: "#f1fa8c"
+      blue: "#bd93f9"
+      magenta: "#ff79c6"
+      cyan: "#8be9fd"
+      white: "#bfbfbf"
+    bright:
+      black: "#4d4d4d"
+      red: "#ff6e67"
+      green: "#5af78e"
+      yellow: "#f4f99d"
+      blue: "#caa9fa"
+      magenta: "#ff92d0"
+      cyan: "#9aedfe"
+      white: "#e6e6e6"
+    dim:
+      black: "#14151b"
+      red: "#ff2222"
+      green: "#1ef956"
+      yellow: "#ebf85b"
+      blue: "#4d5b86"
+      magenta: "#ff46b0"
+      cyan: "#59dffc"
+      white: "#e6e6d1"
+
+colors: *Dracula
+
+# Background opacity
+# Window opacity as a floating point number from `0.0` to `1.0`. The value `0.0` is completely transparent and `1.0` is opaque.
+window.opacity: 1.0
+
+# Clipboard
+selection:
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  save_to_clipboard: true
+
+# Allow terminal applications to change Alacritty's window title.
+dynamic_title: true
+
+# Cursor
+cursor:
+  # Cursor style
+  style: Beam
+  # If this is `true`, the cursor will be rendered as a hollow box when the window is not focused.
+  unfocused_hollow: true
+
+# Live config reload
+live_config_reload: true
+
+# Shell
+# You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`. Entries in `shell.args` are passed unmodified as arguments to the shell.
+shell:
+  program: /bin/fish
+  args:
+    - --login
+
+# Startup directory
+# Directory the shell is started in. If this is unset, or `None`, the working directory of the parent process will be used.
+working_directory: Desktop
+
+# Mouse
+mouse:
+  # If this is `true`, the cursor is temporarily hidden when typing.
+  hide_when_typing: true
+
+# Key bindings
+key_bindings:
+  - { key: V, mods: Control|Shift, action: Paste }
+  - { key: C, mods: Control|Shift, action: Copy }
+  - { key: Insert, mods: Shift, action: PasteSelection }
+  - { key: Key0, mods: Control, action: ResetFontSize }
+  - { key: Equals, mods: Control, action: IncreaseFontSize }
+  - { key: Plus, mods: Control, action: IncreaseFontSize }
+  - { key: Minus, mods: Control, action: DecreaseFontSize }
+  - { key: F11, mods: None, action: ToggleFullscreen }
+  - { key: Paste, mods: None, action: Paste }
+  - { key: Copy, mods: None, action: Copy }
+  - { key: L, mods: Control, action: ClearLogNotice }
+  - { key: L, mods: Control, chars: "\x0c" }
+  - { key: PageUp, mods: None, action: ScrollPageUp, mode: ~Alt }
+  - { key: PageDown, mods: None, action: ScrollPageDown, mode: ~Alt }
+  - { key: Home, mods: Shift, action: ScrollToTop, mode: ~Alt }
+  - { key: End, mods: Shift, action: ScrollToBottom, mode: ~Alt }
