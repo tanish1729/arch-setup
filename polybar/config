@@ -1,0 +1,346 @@
+################################################
+#              polybar config                  #
+#                                              #
+# Github - https://github.com/tanish1729       #
+################################################
+[colors]
+background = #224
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+# Top Bar
+[bar/top]
+width = 100%
+height = 30
+radius = 15.0
+fixed-center = true
+bottom = false
+enable-ipc = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 4
+border-size = 0
+
+padding-left = 4
+padding-right = 2
+
+module-margin-left = 0
+module-margin-right = 8
+
+font-0 = fixed:pixelsize=12;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
+font-3 = FontAwesome:style=Regular:size=12;
+
+modules-left = spotify-prev spotify-play-pause spotify-next spotify
+modules-right = wireless-network wired-network alsa backlight temperature battery
+
+
+tray-position = right
+tray-padding = 2
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+# Modules
+
+[module/spotify-prev]
+type = custom/script
+exec = echo ""
+format = <label>
+click-left = playerctl previous -p spotify
+
+[module/spotify]
+type = custom/script
+tail = true
+interval = 1
+format-prefix = "Spotify :  "
+format-prefix-font = 10
+format-prefix-underline = #e3242b
+format = <label>
+exec = ~/.config/polybar-spotify/scroll_spotify_status.sh
+
+[module/spotify-play-pause]
+type = custom/ipc
+hook-0 = echo ""
+hook-1 = echo ""
+initial = 1
+click-left = playerctl play-pause -p spotify
+
+[module/spotify-next]
+type = custom/script
+exec = echo ""
+format = <label>
+click-left = playerctl next -p spotify
+
+[module/wireless-network]
+# Basic Settings
+type = internal/network
+interface = wlp0s20f3
+interface-type = wireless
+interval = 3.0
+ping-interval = 3
+accumulate-stats = true
+unknown-as-up = false
+speed-unit = ''
+
+# Additional Formatting
+format-connected = <label-connected>
+label-connected = WiFi : %essid% @ %local_ip%
+label-connected-underline = #e3242b
+
+format-disconnected = <label-disconnected>
+label-disconnected = WiFi : Not connected
+label-disconnected-underline = #e3242b
+
+[module/wired-network]
+# Basic Settings
+type = internal/network
+interface = enp0s20f0u2c2
+interface-type = wired
+interval = 3.0
+ping-interval = 3
+accumulate-stats = true
+unknown-as-up = false
+speed-unit = ''
+
+# Additional Formatting
+format-connected = <label-connected>
+label-connected = LAN : IIIT %local_ip%
+label-connected-underline = #e3242b
+
+format-disconnected = <label-disconnected>
+label-disconnected = LAN : Not connected
+label-disconnected-underline = #e3242b
+
+[module/alsa]
+# Basic Settings
+type = internal/alsa
+mapped = true
+interval = 5
+
+# Additional Settings
+format-volume = <label-volume> <bar-volume>
+label-volume = Volume: %percentage%%
+label-volume-foreground = #ffffff
+label-volume-underline = #e3242b
+
+format-muted-prefix = " "
+label-muted = Muted
+label-muted-underline = #e3242b
+
+bar-volume-width = 15
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #55aa55
+bar-volume-foreground-6 = #55aa55
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = |
+bar-volume-fill-font = 5
+bar-volume-empty = |
+bar-volume-empty-font = 5
+
+[module/backlight]
+# Basic Settings
+type = internal/backlight
+card = intel_backlight
+use-actual-brightness = true
+enable-scroll = true
+
+# Additional Formatting
+format = <label> <bar>
+label = Brightness: %percentage%%
+label-underline = #e3242b
+
+bar-width = 15
+bar-indicator = |
+bar-fill = |
+bar-empty = |
+bar-foreground-0 = #f5a70a
+bar-foreground-1 = #f5a70a
+bar-foreground-2 = #f5a70a
+bar-foreground-3 = #f5a70a
+bar-foreground-4 = #f5a70a
+bar-foreground-5 = #f5a70a
+bar-foreground-6 = #f5a70a
+
+[module/temperature]
+# Basic Settings
+type = internal/temperature
+interval = 0.5
+thermal-zone = 0
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon5/temp1_input
+base-temperature = 20
+warn-temperature = 60
+
+# Additional Formatting
+units = true
+
+format = <label>
+label =Temperature: %temperature-c%
+label-underline = #e3242b
+
+
+[module/battery]
+# Basic Settings
+type = internal/battery
+battery = BAT1
+adapter = ACAD
+
+full-at = 98
+low-at = 15
+
+poll-interval = 1
+
+# Additional Formatting
+format-charging = <label-charging>
+label-charging = Battery: %percentage%% (charging)
+label-charging-underline = #e3242b
+
+format-discharging = <label-discharging>
+label-discharging = Battery: %percentage%% (discharging)
+label-discharging-underline = #e3242b
+
+label-full = Fully charged! %percentage%%
+label-full-underline = #e3242b
+
+label-low = Battery Low! %percentage%%
+
+############################################################
+
+
+# Bottom Bar
+[bar/bottom]
+width = 100%
+height = 30
+radius = 15.0
+fixed-center = true
+bottom = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 4
+border-size = 0
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 2
+module-margin-right = 2
+
+font-0 = fixed:pixelsize=12;1
+font-1 = unifont:fontformat=truetype:size=23:antialias=false;0
+font-2 = siji:pixelsize=14;1
+font-3 = Weather Icons:size=14;0
+
+modules-left = i3 xwindow
+modules-center = tani date time weather
+modules-right = deadlines
+
+tray-position = right
+tray-padding = 2
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+# Modules
+
+[module/i3]
+# Basic Settings
+type = internal/i3
+pin-workspaces = true
+show-urgent = true
+strip-wsnumbers = true
+index-sort = false
+enable-click = true
+enable-scroll = true
+wrapping-scroll = true
+reverse-scroll = false
+fuzzy-match = false
+
+# Additional Formatting
+format = <label-state> <label-mode>
+
+label-focused = %name%
+label-focused-underline = #e3242b
+label-focused-padding = 3
+
+label-unfocused = %name%
+label-unfocused-padding = 3
+
+label-urgent = %name%
+label-urgent-background = #35455d
+
+label-separator = |
+
+[module/xwindow]
+# Basic Settings
+type = internal/xwindow
+
+# Additional Formatting
+format = <label>
+format-padding = 5
+
+label = %title%
+label-maxlen = 50
+
+label-empty = Do Something!
+
+[module/tani]
+# Basic Settings
+type = custom/text
+content = « ʈαŋɪ »
+
+[module/date]
+# Basic Settings
+type = internal/date
+interval = 5
+
+date = "%d-%m-%Y"
+
+# Additional Formatting
+format-underline = #e3242b
+
+label = %date%
+label-font = 5
+
+[module/time]
+# Basic Settings
+type = internal/date
+interval = 1
+
+time = %H:%M:%S
+
+# Additional Formatting
+format-underline = #e3242b
+
+label = %time%
+label-font = 5
+
+[module/weather]
+type = custom/script
+exec = ~/.config/polybar-forecast/polybar-forecast-linux-x86_64
+exec-if = ping openweathermap.org -c 1
+interval = 600
+label-font = 5
+label-underline = #e3242b
+
+[module/deadlines]
+# Basic Settings
+type = custom/text
+content = Deadlines :  |
+
+# Additional Formatting
+content-underline = #e3423b
+content-padding = 4

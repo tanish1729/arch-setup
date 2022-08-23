@@ -1,0 +1,16 @@
+[user]
+	name = Tanish Taneja
+	email = tanish.taneja@research.iiit.ac.in
+[init]
+	defaultBranch = main
+[core]
+	editor = code --wait
+[alias]
+	l = log
+	s = status
+	a = add
+	c = commit
+	cm = commit -m
+	ac = commit -a -m
+	ll = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+	list = "!git config -l | grep alias | cut -c 7-"

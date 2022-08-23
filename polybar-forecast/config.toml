@@ -1,0 +1,3 @@
+api_key = "91ddaf329a314b5c11e85361e899f300"
+city_id = "1269843"
+display = "{{ temp_icon }} {{ temp_celcius }}°C {{ trend }} {{ forecast_icon }} {{ forecast_celcius }}°C"
